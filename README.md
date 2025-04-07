@@ -4,7 +4,7 @@
 
 Item Editor 2 is an improvement upon the well-known Item Editor plugin that features an all-new GUI system, even more modules, and a refined permission system.
 
-#ZZII -> 
+## ZZII -> 
 Fix crash on EnchantUtils static init when enchantment not found **( 1.16.5 PurPur )**
 
 ## Getting Started
