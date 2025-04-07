@@ -4,6 +4,9 @@
 
 Item Editor 2 is an improvement upon the well-known Item Editor plugin that features an all-new GUI system, even more modules, and a refined permission system.
 
+#ZZII -> 
+Fix crash on EnchantUtils static init when enchantment not found **( 1.16.5 PurPur )**
+
 ## Getting Started
 
 To get started, download the plugin from Spigot (https://www.spigotmc.org/resources/item-editor-2.27637), restart or reload your server and simply put an item in your hand and type `/ie edit`. That's the only command you'll need to edit an item - everything else can be achieved in the Item Editor menu.
