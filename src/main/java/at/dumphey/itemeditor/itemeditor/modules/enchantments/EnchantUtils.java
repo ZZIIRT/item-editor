@@ -34,26 +34,37 @@ public class EnchantUtils {
         addFancyMaterial(Material.FISHING_ROD, Enchantment.LURE, Enchantment.LUCK);
 
         if (ItemEditor.INSTANCE.getCompatUtils().getMajorVersion() >= 14) {
-            addFancyMaterial(Material.getMaterial("CROSSBOW"), getByEnumName("MULTISHOT"),
-                    getByEnumName("QUICK_CHARGE"),
-                    getByEnumName("PIERCING"));
+            safeAddFancyMaterial(Material.getMaterial("CROSSBOW"), "MULTISHOT", "QUICK_CHARGE", "PIERCING");
         }
 
         if (ItemEditor.INSTANCE.getCompatUtils().getMajorVersion() >= 16) {
-            addFancyMaterial(Material.IRON_BOOTS, getByEnumName("SOUL_SPEED"));
+            safeAddFancyMaterial(Material.IRON_BOOTS, "SOUL_SPEED");
         }
     }
 
     private static Enchantment getByEnumName(String enumName) {
-
         return Arrays.stream(Enchantment.values())
                 .filter(p -> ItemEditor.INSTANCE.getCompatUtils().getEnchantmentKey(p).equalsIgnoreCase(enumName))
-                .findFirst().get();
+                .findFirst()
+                .orElse(null);
+    }
+
+    private static void safeAddFancyMaterial(Material material, String... enchantmentKeys) {
+        for (String key : enchantmentKeys) {
+            Enchantment enchantment = getByEnumName(key);
+            if (enchantment != null) {
+                fancyMaterials.put(enchantment, material);
+            } else {
+                System.out.println("[ItemEditor] Enchantment not found: " + key);
+            }
+        }
     }
 
     private static void addFancyMaterial(Material material, Enchantment... enchantments) {
         for (Enchantment enchantment : enchantments) {
-            fancyMaterials.put(enchantment, material);
+            if (enchantment != null) {
+                fancyMaterials.put(enchantment, material);
+            }
         }
     }
 
@@ -63,5 +74,4 @@ public class EnchantUtils {
         }
         return Material.ENCHANTED_BOOK;
     }
-
 }
